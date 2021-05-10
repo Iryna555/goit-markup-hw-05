@@ -6,6 +6,7 @@
   --secondary-bg-color: #f5f4fa;
   --accent-color: #2196f3;
   --icon-bg-color: #afb1bb;
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html {
@@ -79,6 +80,11 @@ img {
 
 /*  HEADER */
 
+.header {
+  position: fixed;
+  z-index: 100;
+}
+
 .logo {
   font-family: Raleway, sans-serif;
   font-weight: 700;
@@ -98,7 +104,8 @@ img {
 
 /*  NAV */
 
-.nav .link {
+.nav-link {
+  position: relative;
   color: var(--title-color);
   font-weight: 500;
   font-size: 14px;
@@ -108,6 +115,25 @@ img {
   padding-top: 32px;
   padding-bottom: 32px;
 }
+
+.nav-link.current::after {
+  display: block;
+  width: 100%;
+  height: 4px;
+  content:'';
+  top: 0;
+  left: 0;
+  background-color: var(--accent-color);
+  border-radius: 2px;
+
+  /* opacity: 0;
+  transition: opacity 250ms var(--timing-function); */
+}
+/* 
+.nav-link:hover::after {
+ opacity: 1;
+
+} */
 
 .header .contacts .link {
   color: var(--text-color);
@@ -161,7 +187,8 @@ img {
 
 .hero {
   max-width: 1600px;
-  background-image: linear-gradient(to right,rgba(47, 48, 58, 0.4),rgba(47, 48, 58, 0.4)), url('../images/hero-banner-1.jpg');
+  background-image: linear-gradient(to right, rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4)),
+    url('../images/hero-banner-1.jpg');
 
   background-repeat: no-repeat;
   background-size: cover;
@@ -273,16 +300,15 @@ img {
   align-items: center;
   justify-content: center;
   background-color: var(--secondary-bg-color);
-  margin-bottom: 30px; 
+  margin-bottom: 30px;
   border-radius: 4px;
   color: var(--accent-color);
 }
 
-.big-icon:hover, .big-icon:focus {
+.big-icon:hover,
+.big-icon:focus {
   fill: currentColor;
 }
-
-
 
 /* section Team */
 
@@ -348,7 +374,7 @@ img {
 }
 
 .social-icons-item:not(:last-child) {
-margin-right: 10px;
+  margin-right: 10px;
 }
 
 .social-icons-svg {
@@ -369,11 +395,13 @@ margin-right: 10px;
   margin-right: 10px;
 }
 
-.social-icons-link:hover, .social-icons-link:focus {
+.social-icons-link:hover,
+.social-icons-link:focus {
   background-color: var(--accent-color);
 }
 
-.social-icons-link:hover .social-icons-svg, .social-icons-link:focus .social-icons-svg {
+.social-icons-link:hover .social-icons-svg,
+.social-icons-link:focus .social-icons-svg {
   fill: var(--secondary-bg-color);
 }
 
@@ -386,16 +414,16 @@ margin-right: 10px;
 }
 
 .clients-item:not(:last-child) {
-   margin-right: 30px;
-}  
+  margin-right: 30px;
+}
 
 .clients-icon {
   fill: var(--icon-bg-color);
 }
 
 .clients-link {
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
   justify-content: center;
   color: var(--accent-color);
   width: 170px;
@@ -408,12 +436,12 @@ margin-right: 10px;
 
 .clients-link:hover,
 .clients-link:focus {
-border: 1px solid var(--accent-color);
+  border: 1px solid var(--accent-color);
 }
 
 .clients-link:hover .clients-icon,
 .clients-link:focus .clients-icon {
-fill: var(--accent-color);
+  fill: var(--accent-color);
 }
 
 .clients-title {
@@ -448,14 +476,14 @@ fill: var(--accent-color);
   margin-right: 70px;
 }
 
-.footer-title{
-font-weight: 700;
-font-size: 14px;
-line-height: 1.17;
-letter-spacing: 0.03em;
-text-transform: uppercase;
-color: var(--secondary-text-color);
-margin-bottom: 20px;
+.footer-title {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.17;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--secondary-text-color);
+  margin-bottom: 20px;
 }
 
 .footer .logo .accent {
@@ -512,11 +540,12 @@ margin-bottom: 20px;
 }
 
 .footer-icon-svg {
-  fill:var(--secondary-bg-color);
+  fill: var(--secondary-bg-color);
 }
 
-.footer-icon-link:hover, .footer-icon-link:focus {
-background-color: var(--accent-color);
+.footer-icon-link:hover,
+.footer-icon-link:focus {
+  background-color: var(--accent-color);
 }
 
 /* MODAL */
@@ -527,35 +556,32 @@ background-color: var(--accent-color);
   left: 0;
   width: 100%;
   height: 100%;
-  /* bottom: 0;
-  right: 0; */
-  background-color:rgba(196, 189, 129, 0.5);
-  /* 
-  display: flex;
-  justify-content: center;
-  align-items: center; */
-  }
-  
-  /* utility class is-hidden BEM .backdrop--hidden*/
-  .backdrop.is-hidden {
-      opacity: 0;
-      /* не регистрируй на этом элементе события */
-      pointer-events: none;
-  }
-  
-  
-  .modal {  
-      /* this is the correct way of modal positioning, 
-      not flex on backdrop */
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  transition: opacity 250ms var(--timing-function);
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  
-  min-height: 300px;
-  min-width: 400px;
-  padding-bottom: 15px;
-  
+
+  min-width: 528px;
+  min-height: 581px;
+  padding: 15px;
+
   background-color: #fff;
-  
-  }
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(0.9);
+}
